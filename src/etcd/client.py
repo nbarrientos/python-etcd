@@ -9,6 +9,7 @@
 import urllib3
 import json
 import ssl
+import socket
 
 import etcd
 
@@ -523,7 +524,10 @@ class Client(object):
                     raise etcd.EtcdException(
                         'HTTP method {0} not supported'.format(method))
 
-            except urllib3.exceptions.MaxRetryError:
+            # urllib3 1.5 does not catch socket.* as retry-candidate
+            # exceptions, so MaxRetryError is a bit useless here.
+            except (urllib3.exceptions.MaxRetryError,
+                socket.error, socket.timeout):
                 self._base_uri = self._next_server()
                 some_request_failed = True
 
