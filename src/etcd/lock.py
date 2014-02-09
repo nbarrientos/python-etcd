@@ -39,7 +39,7 @@ class Lock(object):
 
     @property
     def _path(self):
-        return u'/mod/v2/lock{}'.format(self.key)
+        return u'/mod/v2/lock{0}'.format(self.key)
 
     def acquire(self, timeout=None):
         """Acquire the lock from etcd. Blocks until lock is acquired."""

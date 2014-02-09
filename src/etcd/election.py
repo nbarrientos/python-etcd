@@ -20,7 +20,7 @@ class LeaderElection(object):
     def get_path(self, key):
         if not key.startswith('/'):
             key = '/' + key
-        return '/mod/v2/leader{}'.format(key)
+        return '/mod/v2/leader{0}'.format(key)
 
     def set(self, key, name=None, ttl=0, timeout=None):
         """
@@ -57,7 +57,7 @@ class LeaderElection(object):
         """
         res = self.client.api_execute(self.get_path(key), self.client._MGET)
         if not res.data:
-            raise etcd.EtcdException('Leader path {} not found'.format(key))
+            raise etcd.EtcdException('Leader path {0} not found'.format(key))
         return res.data.decode('utf-8')
 
     def delete(self, key, name=None):

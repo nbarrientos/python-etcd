@@ -204,7 +204,7 @@ class Client(object):
 
     def _sanitize_key(self, key):
         if not key.startswith('/'):
-            key = "/{}".format(key)
+            key = "/{0}".format(key)
         return key
 
     def write(self, key, value, ttl=None, dir=False, append=False, **kwdargs):
@@ -521,7 +521,7 @@ class Client(object):
                         redirect=self.allow_redirect)
                 else:
                     raise etcd.EtcdException(
-                        'HTTP method {} not supported'.format(method))
+                        'HTTP method {0} not supported'.format(method))
 
             except urllib3.exceptions.MaxRetryError:
                 self._base_uri = self._next_server()
